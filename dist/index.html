@@ -1,0 +1,311 @@
+<!DOCTYPE html>
+<link href="http://fonts.cdnfonts.com/css/harry-potter" rel="stylesheet">
+<html lang="en" class="no-js">
+	<head>
+
+	
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1">
+		<title>Un poco de magia durante la cuarentena</title>
+		<meta name="description" content="Animating SVG text on a path on scroll using the Intersection Observer API and SVG filters.">
+		<meta name="keywords" content="svg text, animation, scroll, svg filter, Intersection Observer">
+		<meta name="author" content="Codrops">
+		<link rel="shortcut icon" href="favicon.2e5f6236.ico">
+		<link rel="stylesheet" href="https://use.typekit.net/rhw1vur.css">
+		<link rel="stylesheet" type="text/css" href="base.0b18b771.css">
+		<script src="https://ajax.googleapis.com/ajax/libs/webfont/1.6.26/webfont.js"></script>
+		<script>document.documentElement.className = "js";
+	
+
+
+	var supportsCssVars = function supportsCssVars() {
+  var e,
+      t = document.createElement("style");
+  return t.innerHTML = "root: { --tmp-var: bold; }", document.head.appendChild(t), e = !!(window.CSS && window.CSS.supports && window.CSS.supports("font-weight", "var(--tmp-var)")), t.parentNode.removeChild(t), e;
+};
+
+supportsCssVars() || alert("Please view this demo in a modern browser that supports CSS Variables.");</script>
+		<!--script src="//tympanus.net/codrops/adpacks/analytics.js"></script-->
+	</head>
+	<body class="loading">
+		<video autoplay="autoplay" loop="loop" id="video_background" preload="auto" volume="muted"/>
+   <source src="video.mp4" type="video/mp4" />
+ </video/>
+
+ <svg class="hidden">
+			<defs>
+				<filter id="blur" x="-30%" y="-30%" width="160%" height="160%">
+					<feGaussianBlur stdDeviation="0" result="blur" data-min-deviation="0" data-max-deviation="10"></feGaussianBlur>
+					<feMerge>
+						<feMergeNode in="blur"></feMergeNode>
+					</feMerge>
+				</filter>
+				<filter id="blur2" x="-30%" y="-30%" width="160%" height="160%">
+					<feGaussianBlur in="SourceAlpha" stdDeviation="0" result="glow" data-min-deviation="0" data-max-deviation="30"></feGaussianBlur>
+					<feColorMatrix result="bluralpha" type="matrix" values="0 -1 0 0 0 0 -1 0 0 1 0 0 -1 0 1 0 0 0 1.8 0 "></feColorMatrix>
+					<feOffset in="bluralpha" dx="0.000000" dy="0.000000" result="offsetBlur"></feOffset>
+					<feMerge>
+						<feMergeNode in="offsetBlur"></feMergeNode>
+						<feMergeNode in="SourceGraphic"></feMergeNode>
+					</feMerge>
+				</filter>
+				<filter id="distortionFilter">
+					<feTurbulence type="fractalNoise" baseFrequency="0.01 0.03" numOctaves="2" seed="2" stitchTiles="stitch" x="0%" y="0%" width="100%" height="100%" result="noise"></feTurbulence>
+					<feDisplacementMap in="SourceGraphic" in2="noise" scale="0" data-min-scale="0" data-max-scale="100" xChannelSelector="R" yChannelSelector="B" x="0%" y="0%" width="100%" height="100%" filterUnits="userSpaceOnUse"></feDisplacementMap>
+				</filter>
+				<filter id="distortionFilter2">
+					<feGaussianBlur stdDeviation="10" result="glow"></feGaussianBlur>
+					<feTurbulence type="fractalNoise" baseFrequency="0 0.1" numOctaves="2" seed="2" stitchTiles="noStitch" x="-30%" y="-30%" width="160%" height="160%" result="noise"></feTurbulence>
+					<feDisplacementMap in="SourceGraphic" in2="noise" scale="0" data-min-scale="0" data-max-scale="50" xChannelSelector="R" yChannelSelector="B" x="-30%" y="-30%" width="160%" height="160%" filterUnits="userSpaceOnUse" result="displacement"></feDisplacementMap>
+					<feMerge>
+						<feMergeNode in="glow"></feMergeNode>
+						<feMergeNode in="displacement"></feMergeNode>
+					</feMerge>
+				</filter>
+			</defs>
+		</svg>
+		<main>
+			<div class="frame frame--screen">
+				<div class="frame__title-wrap">
+					<h1 class="frame__title">Inicio</h1>
+					<div class="frame__links">
+						<a href="https://www.wizardingworld.com/news/discover-your-patronus-on-pottermore">Cuál es tu patronus</a>
+						<a href="https://www.wizardingworld.com/news/discover-your-hogwarts-house-on-wizarding-world">Tu casa de Hogwarts</a>
+						<a href="https://github.com/codrops/AnimateSVGTextPathScroll/">GitHub</a>
+					</div>
+				</div>
+				<h2 class="frame__heading">Un poco de magia en cuarentena</h2>
+				<div class="frame__counter">
+					<span class="frame__counter-number">14</span>
+					<span class="frame__counter-text">meses</span>
+					<span class="frame__counter-number">28</span>
+					<span class="frame__counter-text">dias contando</span>
+				</div>
+			
+				<nav class="frame__links frame__links--header">
+					<a href="https://www.wizardingworld.com">Pottermore</a>
+				
+				</nav>
+			</div>
+			<header class="intro">
+				<div id="logo">
+					<a href="">
+						<img src="logo.png" alt="Stack Overflow" />
+					</a>
+				</div>
+				<p class="intro__hint">Bajo una nueva luz durante el coronavirus</p>
+			</header>
+			<div class="grid">
+	
+                
+				<div class="grid__item">
+					<span class="grid__item-number">01</span>
+					<img class="grid__item-img" src="hp0.jpg" alt="Some image">
+					<h3 class="grid__item-title">Harry Potter y la pidra filosofal</h3>
+					<p class="grid__item-description">En una sociedad pandémica, la lectura de 
+						líneas como “la inmensidad pura e incolora del cielo tendido sobre él,
+						 indiferente a él y a su sufrimiento” adquiere una nueva capacidad 
+						 de inmersión. Las experiencias de aislamiento y ansiedad de Harry 
+						 ahora lo acercan a nosotros, lo hacen más identificable e identificable, 
+						 al igual que una sociedad sumida en una pandemia puede ahora, a su vez, 
+						 acercarse más a Harry y comprender con mayor profundidad el gran costo 
+						 psicológico que conlleva su llegada a Hogwarts.</p>
+						
+				</div>
+				<div class="grid__item">
+					<span class="grid__item-number">02</span>
+					<img class="grid__item-img" src="hp11.jpg" alt="Some image">
+					<h3 class="grid__item-title">Harry Potter y la Cámara de los Secretos</h3>
+					<p class="grid__item-description">Este libro es como un rayo de sol. Harry Potter
+						 está a punto de comenzar su segundo año en Hogwarts. Espera que sea un año normal 
+						 después de sus experiencias el trimestre anterior, pero se abre una cámara secreta, 
+						 los estudiantes nacidos de muggles son atacados y Harry debe poner su vida en peligro una vez más.
+						Disfruté este libro porque está lleno de acción, fantasía y creatividad.
+						 Y porque en momentos de soledad (como gran parte de la cuarentena durante
+						  el primer brote de covid-19) te hace revalorar el sentido de la amistad.</p>
+				</div>
+			</div>
+			<svg class="svgtext svgtext--1" data-filter-type="blur" width="120%" preserveAspectRatio="xMidYMid meet" viewBox="0 0 1000 200">
+				<path id="text-curve1" d="M 0 100 Q 250 200 500 100 Q 750 0 1000 100" fill="none"></path>
+				<text filter="url(#blur)">
+					<textPath href="#text-curve1">
+						No hay ni bien ni mal, sólo hay poder y personas demasiado débiles para buscarlo...
+					</textPath>
+				</text>
+			</svg>
+			<svg class="svgtext" data-filter-type="blur" width="120%" preserveAspectRatio="xMidYMid meet" viewBox="0 0 1000 200">
+				<path id="text-curve11" d="M 0 100 Q 250 0 500 100 Q 750 200 1000 100" fill="none"></path>
+				<text filter="url(#blur2)">
+					<textPath href="#text-curve11">
+						Son nuestras elecciones, Harry, las que muestran lo que somos, mucho más que nuestras habilidades.
+					</textPath>
+				</text>
+			</svg>
+			<div class="grid">
+				<div class="grid__item">
+					<span class="grid__item-number">03</span>
+					<img class="grid__item-img" src="hp3.jpg" alt="Some image">
+					<h3 class="grid__item-title">Harry Potter y el prisionero de Azkaban</h3>
+					<p class="grid__item-description">Una de las mejores cosas de Harry Potter es que mejoran con cada libro,
+						 y puedes vislumbrar claramente la intrincada e inteligente trama que Rowling ha tejido, 
+						 con presagios ingeniosamente colocados y sugerencias aparentemente inocentes.
+						Este libro es, sin duda, más oscuro que los anteriores, ya que Harry aprende 
+						cada vez más sobre las fuerzas siniestras que amenazan al mundo mágico. Los personajes 
+						comienzan a volverse más desarrollados y complejos, y muchísimo más interesantes. 
+						Cuando releí este libro después de casi 8 años, estaba en un punto bajo con mi autoestima, 
+						creo que lo lindo de la saga de Harry Potter es que mientras Harry se autodescubre, 
+						uno lo acompaña en el proceso.</p>
+				</div>
+				<div class="grid__item">
+					<span class="grid__item-number">04</span>
+					<img class="grid__item-img" src="hp4.jpg" alt="Some image">
+					<h3 class="grid__item-title">Harry Potter y el caliz de fuego</h3>
+					<p class="grid__item-description">Y llegamos a mi favorito. Probablemente es el numero uno de mi lista 
+						porque el mundo mágico se desarrolla más que en cualquier otro de los libros y como amante
+						de Hogwarts es interesante saber cómo son otras escuelas mágicas en el mundo de Harry Potter,
+						y explorar más a fondo el lista aparentemente interminable de criaturas. Este es un libro 
+						que recomiendo cuando quieras escapar del encierro y la monotonía de las cuarentenas.
+						En este libro nos encontramos regularmente con Cedric Diggory, un Hufflepuff, que nos
+						permite ver la casa Hufflepuff con más profundidad en lugar de tocarla brevemente como 
+						lo ha sido en otros libros. Me gusta cómo podemos ver la justicia que Cedric se esfuerza
+						por defender a lo largo de este libro, mostrándonos el valor de Hufflepuffs. Llore demasiado
+						con este libro, pero probablemente pueda interpretar a Myrtle la llorona sin ningún problema. 
+					Lo mejor de este libro es que introduce a Lupin y a Sirius, probablemente mis dos personas favoritos de 
+				todos los libros (además de Hermione)</p>
+				</div>
+			</div>
+			<img class="bigimg" src="mapa.gif" alt="Some image">
+			<svg class="svgtext svgtext--2" data-filter-type="distortion" width="120%" preserveAspectRatio="xMidYMid meet" viewBox="0 0 1000 200">
+				<path id="text-curve2" d="M 0 50 Q 100 0 200 100 Q 300 200 650 50 C 750 0 750 150 1000 50" fill="none"></path>
+				<text filter="url(#distortionFilter)">
+					<textPath href="#text-curve2">
+						Juro solemnemente que mis intenciones no son buenas.
+					</textPath>
+				</text>
+			</svg>
+			<svg class="svgtext" data-filter-type="distortion" width="120%" preserveAspectRatio="xMidYMid meet" viewBox="0 0 1000 300">
+				<path id="text-curve22" d="M 0 200 Q 150 300 300 200 Q 700 0 1000 150" fill="none"></path>
+				<text filter="url(#distortionFilter2)">
+					<textPath href="#text-curve22">
+						Si quieres saber cómo es alguien, mira de qué manera trata a sus inferiores, no a sus iguales.
+					</textPath>
+				</text>
+			</svg>
+			<div class="grid">
+				<div class="grid__item">
+					<span class="grid__item-number">05</span>
+					<img class="grid__item-img" src="hp5.jpg" alt="Some image">
+					<h3 class="grid__item-title">Harry Potter y la Orden del Fenix</h3>
+					<p class="grid__item-description">Este libro se siente como la pandemia, y no tengo mucho más que decir.
+						Básicamente, la historia se reduce a que Harry se siente frustrado porque no puede
+						hacer mucho por sí mismo por la Orden del Fénix porque todavía es muy joven a pesar de sus 
+						logros y conocimientos pasados. Está frustrado porque nadie parece estar dándole la hora 
+						del día o tomando en cuenta lo que tiene que decir. Esto viene adelante con las
+						interacciones con el profesor Dumbledore a lo largo de todo el libro. </p>
+				</div>
+				<div class="grid__item">
+					<span class="grid__item-number">06</span>
+					<img class="grid__item-img" src="hp6.jpg" alt="Some image">
+					<h3 class="grid__item-title">Harry Potter y el principe Mestizo</h3>
+					<p class="grid__item-description">JUno puede sentirse constantemente como Ron cuando le 
+						pregunta a Hermione "¿Alguien más que conocemos murió?" Mi hermana es enfermera, lleva
+						más de un año viendo la muerte por covid-19 y de alguna forma reconozco el sentido
+						de la pregunta de Ron. Ha habido muertes antes en las novelas de Potter: la primera narra
+						el asesinato de los padres de Harry en su capítulo inicial. Ahora todos los personajes son 
+						propensos a lo que Hermione llama sin rodeos "culpa del superviviente". Las muertes 
+						esparcidas a lo largo de las novelas anteriores de Potter regresan a sus mentes para producir 
+						una tristeza imperante. Rowling habla mucho sobre el envejecimiento de sus personajes, 
+						y ahora que Harry, Ron y Hermione tienen 16 años, la conciencia casi opresiva de la mortalidad 
+						es claramente un aspecto novedoso de su madurez. La adolescencia es todo menos alegre.</p>
+				</div>
+			</div>
+			<svg class="svgtext svgtext--3" data-filter-type="blur" width="120%" preserveAspectRatio="xMidYMid meet" viewBox="0 0 1000 200">
+				<path id="text-curve3" d="M 0 150 Q 200 50 500 50 Q 800 50 1000 150 " fill="none"></path>
+				<text filter="url(#blur)">
+					<textPath href="#text-curve3">
+						Según la señora Pomfrey, los pensamientos podían dejar cicatrices más profundas que ninguna otra cosa
+					</textPath>
+				</text>
+			</svg>
+			<svg class="svgtext svgtext--3" data-filter-type="blur" width="120%" preserveAspectRatio="xMidYMid meet" viewBox="0 0 1000 200">
+				<path id="text-curve4" d="M 0 150 Q 200 50 500 50 Q 800 50 1000 150 " fill="none"></path>
+				<text filter="url(#blur)">
+					<textPath href="#text-curve4">
+						Lo bueno de crecer con Fred y George es que acabas pensando que cualquier cosa es posible si tienes suficiente coraje.
+					</textPath>
+				</text>
+			</svg>
+			<svg class="svgtext svgtext--3" data-filter-type="blur" width="120%" preserveAspectRatio="xMidYMid meet" viewBox="0 0 1000 200">
+				<path id="text-curve5" d="M 0 150 Q 200 50 500 50 Q 800 50 1000 150 " fill="none"></path>
+				<text filter="url(#blur)">
+					<textPath href="#text-curve5">
+						Es más fácil perdonar a los demás por haberse equivocado que por tener razón.
+					</textPath>
+				</text>
+			</svg>
+			<img class="bigimg" src="fenix.jpg" alt="Some image">
+			<div class="grid-wrap">
+				<svg class="svgtext svgtext--4" data-filter-type="blur" width="120%" preserveAspectRatio="xMidYMid meet" viewBox="0 0 1000 200">
+					<path id="textcircle" d="M 0 0 Q 200 150 500 150 Q 850 150 1000 0 " fill="none"></path>
+					<text filter="url(#blur)">
+						<textPath href="#textcircle">
+						Estaremos a tu lado pase lo que pase.
+						</textPath>
+					</text>
+				</svg>
+				<div class="grid">
+					<div class="grid__item">
+						<span class="grid__item-number">07</span>
+						<img class="grid__item-img" src="hp7.jpg" alt="Some image">
+						<h3 class="grid__item-title">Harry Potter y las reliquias de la muerte</h3>
+						<p class="grid__item-description">Al terminar el último libro de Harry Potter, me quedé con una 
+							gran cantidad de pensamientos y emociones. Pero, sobre todo, un pensamiento seguía apareciendo 
+							una y otra vez: "Son nuestras elecciones, Harry, las que muestran lo que realmente somos, mucho 
+							más que nuestras habilidades". El profesor Albus Dumbledore pronunció esas sabias palabras al concluir 
+							el segundo año de Harry en Hogwarts. Cuando reflexiono sobre todo lo que ocurre en el séptimo libro desde 
+							la primera hasta la última página, es la esencia de las palabras de Dumbledore lo que impulsa por qué 
+							Harry Potter completa con éxito su misión: acabar con el reinado de terror de Lord Voldemort.
+							En el punto medio del libro, Harry se da cuenta del "secreto" de las Reliquias de la Muerte y 
+							comienza a sospechar que ya puede estar en posesión de una de ellas (su capa de invisibilidad). 
+							Sabe que al obtener la Varita de Anciano y la Piedra de la Resurrección, solo él sería el dueño de las 
+							tres Reliquias de la Muerte, lo que tiene el beneficio adicional de convertir a Harry en el "maestro de la muerte". 
+							Este es un gran atractivo para alguien como Harry que está buscando posibles ventajas sobre su archienemigo, Lord Voldemort.
+							 Sin embargo, al final, Harry toma la decisión que marca la diferencia. Sabio más allá de su adolescencia, 
+							 Harry elige no seguir siendo un "maestro de la muerte" ya que un hombre no debería tener tanto poder sobre el 
+							 orden natural de las cosas. Y el viaje de autodescubrimiento llega a su fin, no sin antes haberte sometido a múltiples sufrimietos 
+							(como haber perdido a tus personajes favoritos) </p>
+					</div>
+					<div class="grid__item">
+						<span class="grid__item-number">Bonus</span>
+						<img class="grid__item-img" src="hp8.jpg" alt="Some image">
+						<h3 class="grid__item-title">Animales fantasticos y donde encontrarlos</h3>
+						<p class="grid__item-description">Animales fantásticos y dónde encontrarlos no es una historia,
+							 ni tiene nada que ver con la película, sino que es una especie de guía de todos los animales 
+							 fantásticos que conforman el mundo ‘J.K. Rowling’. En teoría, este libro está escrito por Newt Scamander, 
+							 magizoologista (personas que estudian las criaturas mágicas) perteneciente a la casa Hufflepuff. 
+							 Al principio del libro hay una nota que da a entender que el libro debe venderse a los muggles como 
+							 ‘ficción’, cuando en realidad los magos saben que no lo es.
+							 Nota del editor: Para la edición muggle, la misma farsa: “ficción, por supuesto – todo muy divertido, 
+							 nada de qué preocuparse – que lo disfruten”.</p>
+					
+	
+					</div>
+
+					
+				</div>
+
+			</div>
+			<footer class="frame">
+				<div class="frame__links">
+					<a href="https://tympanus.net/Development/AudioBasedImageDistortion/">Previous Demo</a>
+					<a href="https://tympanus.net/codrops/?p=47831">Article</a>
+					<a href="https://github.com/codrops/AnimateSVGTextPath/">GitHub</a>
+				</div>
+			</footer>
+		</main>
+		<!--script src="https://tympanus.net/codrops/adpacks/demoad.js"></script-->
+		<script src="js.c39dff1f.js"></script>
+		<audio src="fondo.mp3" autoplay loop></audio>
+		
+	</body>
+</html>
